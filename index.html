@@ -1,0 +1,643 @@
+<!DOCTYPE HTML>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Globe - Country Profiles</title>
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!--=============== css  ===============-->
+    <link type="text/css" rel="stylesheet" href="css/reset.css">
+    <link type="text/css" rel="stylesheet" href="css/plugins.css">
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+    <link type="text/css" rel="stylesheet" href="css/color.css">
+    <link type="text/css" rel="stylesheet" href="css/dashboard-style.css">
+    <!--=============== favicons ===============-->
+    <link rel="shortcut icon" href="images/favicon.ico">
+</head>
+
+<body>
+    <!--loader-->
+    <div class="loader-wrap">
+        <div class="loader-inner">
+            <div class="loader-inner-cirle"></div>
+        </div>
+    </div>
+    <!--loader end-->
+    <!-- main start  -->
+    <div id="main">
+        <!-- header -->
+        <header class="main-header">
+            <!-- header-search_btn-->
+            <div class="header-search_btn show-search-button"><i class="fal fa-search"></i><span>Search</span></div>
+            <!-- header-search_btn end-->
+            <!-- header opt -->
+            <a href="#" class="add-list color-bg">Company Profiles <span><i
+                        class="fal fa-layer-plus"></i></span></a>
+            <!-- nav-button-wrap-->
+            <div class="nav-button-wrap color-bg">
+                <div class="nav-button">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+            <!-- nav-button-wrap end-->
+
+            <!-- navigation  end -->
+            <!-- header-search_container -->
+            <div class="header-search_container header-search vis-search">
+                <div class="container small-container">
+                    <div class="header-search-input-wrap fl-wrap">
+                        <!-- header-search-input -->
+                        <div class="header-search-input">
+                            <label><i class="fal fa-keyboard"></i></label>
+                            <input type="text" placeholder="Which place would you like to search ?" value="" />
+                        </div>
+                        <!-- header-search-input end -->
+                        <!-- header-search-input -->
+                        <div class="header-search-input location autocomplete-container">
+                            <label><i class="fal fa-map-marker"></i></label>
+                            <input type="text" placeholder="Location..." class="autocomplete-input" id="autocompleteid2"
+                                value="" />
+                            <a href="#"><i class="fal fa-dot-circle"></i></a>
+                        </div>
+                        <!-- header-search-input end -->
+                        <!-- header-search-input -->
+                        <div class="header-search-input header-search_selectinpt ">
+                            <select data-placeholder="Category" class="chosen-select no-radius">
+                                <option>All Countries</option>
+                                <option>ZWE</option>
+                                <option>USA</option>
+                                <option>UK</option>
+                                <option>FRANCE</option>
+                                <option>GERMAN</option>
+                            </select>
+                        </div>
+                        <!-- header-search-input end -->
+                        <button class="header-search-button green-bg" ><i
+                                class="far fa-search"></i> Search </button>
+                    </div>
+                    <div class="header-search_close color-bg"><i class="fal fa-long-arrow-up"></i></div>
+                </div>
+            </div>
+            <!-- header-search_container  end -->
+        </header>
+        <!-- header end-->
+        <!-- wrapper-->
+        <div id="wrapper">
+            <!-- content-->
+            <div class="content">
+                <!-- Map -->
+
+                <div class="row">
+                    <div style="padding:20px" class="col-md-4">
+                        <!--box-widget-item -->
+                        <div class="box-widget-item fl-wrap block_box">
+                            <div class="box-widget-item-header">
+                                <h3>Zimbabwe, Harare <img src="images/zim.png" style="margin-left:40px" width="40"
+                                        height="30" alt=""></h3>
+                            </div>
+                            <div class="box-widget opening-hours fl-wrap">
+                                <div class="box-widget-content">
+                                    <ul class="no-list-style">
+                                        <li class="mon"><span class="opening-hours-day">Capital City </span><span
+                                                class="opening-hours-time">Harare</span></li>
+                                        <li class="tue"><span class="opening-hours-day">Population </span><span
+                                                class="opening-hours-time">14,240,168</span></li>
+                                        <li class="wed"><span class="opening-hours-day">Region </span><span
+                                                class="opening-hours-time">Africa</span></li>
+                                        <li class="thu"><span class="opening-hours-day">Sub Region </span><span
+                                                class="opening-hours-time"> Eastern Africa</span></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <!--box-widget-item end -->
+
+                        <div class="box-widget-item fl-wrap block_box">
+                            <div class="box-widget-item-header">
+                                <h3>Location Details</h3>
+                            </div>
+                            <div class="box-widget opening-hours fl-wrap">
+                                <div class="box-widget-content">
+                                    <ul class="no-list-style">
+                                        <li class="fri"><span class="opening-hours-day">-covered </span><span
+                                                class="opening-hours-time"> 390,757 km²</span></li>
+                                        <li class="sat"><span class="opening-hours-day">Latitude </span><span
+                                                class="opening-hours-time">-20.0</span></li>
+                                        <li class="sun"><span class="opening-hours-day">Longitude </span><span
+                                                class="opening-hours-time">30.0</span></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="map-container  fw-map big_map hid-mob-map">
+                            <div style="height:700px" id="map-main"></div>
+                            <ul class="mapnavigation no-list-style">
+                                <li><a href="#" class="prevmap-nav mapnavbtn"><span><i
+                                                class="fas fa-caret-left"></i></span></a></li>
+                                <li><a href="#" class="nextmap-nav mapnavbtn"><span><i
+                                                class="fas fa-caret-right"></i></span></a></li>
+                            </ul>
+                            <div class="scrollContorl mapnavbtn tolt" data-microtip-position="top-left"
+                                data-tooltip="Enable Scrolling"><span><i class="fal fa-unlock"></i></span></div>
+                            <div class="location-btn geoLocation tolt" data-microtip-position="top-left"
+                                data-tooltip="Your location"><span><i class="fal fa-location"></i></span></div>
+                            <div class="map-close"><i class="fas fa-times"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Map end -->
+                <div class="clearfix"></div>
+                <!--component view to display parts which will be changing -->
+                <section id="app" class="gray-bg main-dashboard-sec" id="sec1">
+                    <div class="container">
+                        <!--  dashboard-menu-->
+                        <div class="col-md-3">
+                           
+                            <div class="clearfix"></div>
+                            <div class="fixed-bar fl-wrap" id="dash_menu">
+                                <div class="user-profile-menu-wrap fl-wrap block_box">
+                                    <!-- user-profile-menu-->
+                                    <div class="user-profile-menu">
+                                        <h3>Demographic Details</h3>
+                                        <ul class="no-list-style">
+                                            <li><a @click.prevent="population()"
+                                                    :class="{'user-profile-act':isPopulation}"><i
+                                                        class="fas fa-users"></i>City Population</a></li>
+                                            <li><a @click.prevent="economy()" :class="{'user-profile-act':isEconomy}"><i
+                                                        class="fas fa-dollar-sign"></i>Economy<span>7</span></a></li>
+                                            <li><a @click.prevent="history()" :class="{'user-profile-act':isHistory}"><i
+                                                        class="fas fa-history"></i>History<span>7</span></a></li>
+                                            <li><a @click.prevent="links()" :class="{'user-profile-act':isLinks}"><i
+                                                        class="fal fa-link"></i>Country Links<span>7</span></a></li>
+                                            <li><a @click.prevent="covid()" :class="{'user-profile-act':isCovid}"><i
+                                                        class="fal fa-link"></i>Covid 19 Statistics<span>7</span></a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+                                    <!-- user-profile-menu end-->
+                                    <!-- user-profile-menu-->
+                                    <div class="user-profile-menu">
+                                        <h3>Geographic details</h3>
+                                        <ul class="no-list-style">
+                                            <li><a @click.prevent="continent()"
+                                                    :class="{'user-profile-act':isContinent}"><i
+                                                        class="fas fa-map-pin"></i>Continent</a></li>
+                                            <li><a @click.prevent="area()" :class="{'user-profile-act':isArea}"> <i
+                                                        class="fas fa-chart-area"></i>Area</a></li>
+                                            <li><a @click.prevent="location()"
+                                                    :class="{'user-profile-act':isLocation}"><i
+                                                        class="fas fa-location"></i> Location </a></li>
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- dashboard-menu  end-->
+                        <!-- dashboard content-->
+                        <!--the changing component and i have binded current view to the data in the vue app-->
+
+                        <component :is="currentView"></component>
+                        <!-- dashboard content end-->
+                    </div>
+                </section>
+                <div class="limit-box fl-wrap"></div>
+            </div>
+            <!--content end-->
+        </div>
+        <!-- wrapper end-->
+
+    </div>
+
+    <template id="population">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Demographic Details</h3>
+            </div>
+            <!-- list-single-facts -->
+            <div class="list-single-facts fl-wrap">
+                <div class="row">
+                    <div class="col-md-4">
+                        <!-- inline-facts -->
+                        <div class="inline-facts-wrap gradient-bg ">
+                            <div class="inline-facts">
+                                <i class="fal fa-chart-bar"></i>
+                                <div class="milestone-counter">
+                                    <div class="stats animaper">
+                                        <div class="num" data-content="0" data-num="1054">10,000</div>
+                                    </div>
+                                </div>
+                                <h6>Covid 19 Cases</h6>
+                            </div>
+                            <div class="stat-wave">
+                                <svg viewbox="0 0 100 25">
+                                    <path fill="#fff" d="M0 30 V12 Q30 17 55 2 T100 11 V30z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- inline-facts end -->
+                    </div>
+                    <div class="col-md-4">
+                        <!-- inline-facts  -->
+                        <div class="inline-facts-wrap gradient-bg ">
+                            <div class="inline-facts">
+                                <i class="fal fa-comments-alt"></i>
+                                <div class="milestone-counter">
+                                    <div class="stats animaper">
+                                        <div class="num" data-content="0" data-num="2557">31</div>
+                                    </div>
+                                </div>
+                                <h6>Cities</h6>
+                            </div>
+                            <div class="stat-wave">
+                                <svg viewbox="0 0 100 25">
+                                    <path fill="#fff" d="M0 30 V12 Q30 17 55 12 T100 11 V30z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- inline-facts end -->
+                    </div>
+                    <div class="col-md-4">
+                        <!-- inline-facts  -->
+                        <div class="inline-facts-wrap gradient-bg ">
+                            <div class="inline-facts">
+                                <i class="fal fa-envelope-open-dollar"></i>
+                                <div class="milestone-counter">
+                                    <div class="stats animaper">
+                                        <div class="num" data-content="0" data-num="125"> 14,240,168</div>
+                                    </div>
+                                </div>
+                                <h6>Population </h6>
+                            </div>
+                            <div class="stat-wave">
+                                <svg viewbox="0 0 100 25">
+                                    <path fill="#fff" d="M0 30 V12 Q30 12 55 5 T100 11 V30z" />
+                                </svg>
+                            </div>
+                        </div>
+                        <!-- inline-facts end -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="economy">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Economy</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="history">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>History</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="links">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Links</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="covid">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Covid 19 stats and other infections</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="continent">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Continent Details</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="area-covered">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>Area Covered and Weather</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+
+    <template id="location">
+        <div class="col-md-9">
+            <div class="dashboard-title fl-wrap">
+                <h3>location</h3>
+            </div>
+            <!-- list-single-facts -->
+
+
+            <div class="col-md-12">
+
+                <!-- profile-edit-container-->
+                <div class="profile-edit-container fl-wrap block_box">
+                    <!-- booking-list-->
+                    <div class="booking-list">
+                        <div class="booking-list-message">
+                            <div class="booking-list-message-text">
+                                <h4>Zimbabwe- <span>{Lat : -18.01274 Lon : 31.07555}</span></h4>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Population :</span>
+                                    <span class="booking-text">1,542,813</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cities :</span>
+                                    <span class="booking-text">22</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Cpital City :</span>
+                                    <span class="booking-text">Harare</span>
+                                </div>
+                                <div class="booking-details fl-wrap">
+                                    <span class="booking-title">Covid 19 cases :</span>
+                                    <span class="booking-text"> 10,1000</span>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                    <!-- dashboard-list end-->
+                </div>
+                <!-- profile-edit-container end-->
+            </div>
+        </div>
+    </template>
+    <!-- Main end -->
+    <!--=============== scripts  ===============-->
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/plugins.js"></script>
+    <script src="./js/scripts.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9bVjNcu9A29cZsfCagdo_AysK_Oik9xE&amp;libraries=places&amp;callback=initAutocomplete"></script>
+    <script src="./js/map-plugins.js"></script>
+    <script src="./js/map-listing.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <script src="./app.js"></script>
+</body>
+</html>
