@@ -8271,7 +8271,7 @@ section.gray-section .section-separator {
 	background:#fff;
 	border-radius:5px;
 	border:1px solid #eee;
-	
+	width: 100%;
 }
 /*------responsive------------------------------------------------*/
 @media only screen and  (max-width: 1290px) {

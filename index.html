@@ -62,18 +62,14 @@
                         </div>
                         <!-- header-search-input end -->
                         <!-- header-search-input -->
-                        <div class="header-search-input header-search_selectinpt ">
-                            <select data-placeholder="Category" class="chosen-select no-radius">
-                                <option>All Countries</option>
-                                <option>ZWE</option>
-                                <option>USA</option>
-                                <option>UK</option>
-                                <option>FRANCE</option>
-                                <option>GERMAN</option>
-                            </select>
-                        </div>
+                        <div class="header-search-input location autocomplete-container">
+                            <label><i class="fal fa-map-marker"></i></label>
+                            <input type="text" id="query_text" onchange="search()" placeholder="Country..." class="autocomplete-input" id="autocompleteid2"
+                                value="" />
+                                <a href="#"><i class="fal fa-dot-circle"></i></a>
+                            </div>
                         <!-- header-search-input end -->
-                        <button class="header-search-button green-bg" ><i
+                        <button onclick="search()" class="header-search-button green-bg" ><i
                                 class="far fa-search"></i> Search </button>
                     </div>
                     <div class="header-search_close color-bg"><i class="fal fa-long-arrow-up"></i></div>
@@ -89,44 +85,46 @@
                 <!-- Map -->
 
                 <div class="row">
-                    <div style="padding:20px" class="col-md-4">
+                    <div id="side-bar-app" style="padding:20px" class="col-md-4">
                         <!--box-widget-item -->
                         <div class="box-widget-item fl-wrap block_box">
                             <div class="box-widget-item-header">
                                 <h3>Zimbabwe, Harare <img src="images/zim.png" style="margin-left:40px" width="40"
                                         height="30" alt=""></h3>
                             </div>
-                            <div class="box-widget opening-hours fl-wrap">
+                            <div v-if="!loading" class="box-widget opening-hours fl-wrap">
                                 <div class="box-widget-content">
                                     <ul class="no-list-style">
                                         <li class="mon"><span class="opening-hours-day">Capital City </span><span
-                                                class="opening-hours-time">Harare</span></li>
+                                                class="opening-hours-time">{{country_data.geonames[0].capital}}</span></li>
                                         <li class="tue"><span class="opening-hours-day">Population </span><span
-                                                class="opening-hours-time">14,240,168</span></li>
+                                                class="opening-hours-time">{{country_data.geonames[0].population}}</span></li>
                                         <li class="wed"><span class="opening-hours-day">Region </span><span
-                                                class="opening-hours-time">Africa</span></li>
+                                                class="opening-hours-time">{{country_data.geonames[0].continentName}}</span></li>
                                         <li class="thu"><span class="opening-hours-day">Sub Region </span><span
-                                                class="opening-hours-time"> Eastern Africa</span></li>
-
+                                                class="opening-hours-time">{{country_data.geonames[0].continentName}}</span></li>
+                                        <li class="thu"><span class="opening-hours-day">currency Code</span><span
+                                            class="opening-hours-time">{{country_data.geonames[0].currencyCode}}</span></li>
+    
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <!--box-widget-item end -->
 
-                        <div class="box-widget-item fl-wrap block_box">
+                        <div v-if="!loading" class="box-widget-item fl-wrap block_box">
                             <div class="box-widget-item-header">
                                 <h3>Location Details</h3>
                             </div>
                             <div class="box-widget opening-hours fl-wrap">
                                 <div class="box-widget-content">
                                     <ul class="no-list-style">
-                                        <li class="fri"><span class="opening-hours-day">-covered </span><span
-                                                class="opening-hours-time"> 390,757 km²</span></li>
+                                        <li class="fri"><span class="opening-hours-day">Area covered </span><span
+                                                class="opening-hours-time"> {{country_data.geonames[0].areaInSqKm}} km²</span></li>
                                         <li class="sat"><span class="opening-hours-day">Latitude </span><span
-                                                class="opening-hours-time">-20.0</span></li>
+                                                class="opening-hours-time">{{country_data.geonames[0].south}}</span></li>
                                         <li class="sun"><span class="opening-hours-day">Longitude </span><span
-                                                class="opening-hours-time">30.0</span></li>
+                                                class="opening-hours-time">{{country_data.geonames[0].east}}</span></li>
                                     </ul>
                                 </div>
                             </div>
@@ -634,10 +632,16 @@
     <script src="./js/plugins.js"></script>
     <script src="./js/scripts.js"></script>
     <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA9bVjNcu9A29cZsfCagdo_AysK_Oik9xE&amp;libraries=places&amp;callback=initAutocomplete"></script>
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDDM2_SEiH2ZsB2_recgP3vKSxHHrCLN3A&amp;libraries=places&amp;callback=initAutocomplete"></script>
     <script src="./js/map-plugins.js"></script>
     <script src="./js/map-listing.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
     <script src="./app.js"></script>
+    <script src="./search.js"></script>
+    <script src="./sideBar.js"></script>
+    <script src="./data.js"></script>
+
+
+
 </body>
 </html>

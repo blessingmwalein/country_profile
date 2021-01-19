@@ -1,19 +1,9 @@
+var location_population = "";
+
 (function ($) {
     "use strict";
+    
     function mainMap() {
-        function locationData(locationURL, locationImg, locationTitle, locationAddress, locationCategory, locationStarRating, locationRevievsCounter, locationStatus) {
-            return ('<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>Harare, ZWE</a></div> <div class="widget-posts-descr-link"><a href="">Lat : -18.01274</a> </div> <div class="widget-posts-descr-link"><a href="">Long : -31.07555</a> </div> <div class="widget-posts-descr-link"><a href="">Population : 340,360</a> </div><div class="widget-posts-descr-link"><a href="">Humidity : 67.4%</a> </div><div class="widget-posts-descr-link"><a href=""> Temperature :40c</a> </div></div></div></div></div>'
-            )
-        }
-        //  Map Infoboxes ------------------
-        var locations = [
-
-            [locationData('listing-single2.html', 'images/zim.png', 'City In zimbabwe', "Harare, ZWE", 'cafe-cat', "5", "12", "open"), -17.8216, 31.0492, 0, 'images/zim.png'],
-            [locationData('listing-single.html', 'images/zim.png', 'City in zimbabwe', "Harare,ZWE", 'event-cat', "4", "6", "27 may 2019"), -20.1457, 28.5873, 1, 'images/zim.png'],
-            [locationData('listing-single.html', 'images/zim.png', 'City in zimabwe', " Mutare, ZWE", 'gym-cat', "3", "4", "close"), -18.9758, 32.6691, 2, 'images/zim.png'],
-            
-        ];
-        //   Map Infoboxes end ------------------
         var map = new google.maps.Map(document.getElementById('map-main'), {
             zoom: 6,
             scrollwheel: false,
@@ -37,16 +27,97 @@
             }]
         });
 
-        var polygon = new google.maps.Polygon({
-          paths:delimiters,
-          strokeColor: '#FF000',
-          strokeOpity:0.8,
-          strokeWeight:3,
-          fillColor:'#ff0000',
-          fillOpacity:0.35
-        });
+        var geocoder = new google.maps.Geocoder();
+        var infowindow = new google.maps.InfoWindow();
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function (p) {
+                var LatLng = new google.maps.LatLng(p.coords.latitude, p.coords.longitude);
+                console.log(LatLng);
+                var mapOptions = {
+                    center: LatLng,
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+                map.setOptions(mapOptions);
+                geocoder.geocode({
+                    'location': LatLng
+                }, function (results, status) {
+                    console.log("geocoder callback status=" + status);
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            map.setZoom(11);
+                            // from "Google maps API, get the users city/ nearest city/ general area"
+                            // https://stackoverflow.com/questions/50081245/google-maps-api-get-the-users-city-nearest-city-general-area
+                            var details = results[0].address_components;
+                            var city;
+                            var country;
+                            var short_name;
+                            console.log(JSON.stringify(details));
+                            for (var i = details.length - 1; i >= 0; i--) {
+                                for (var j = 0; j < details[i].types.length; j++) {
+                                    if (details[i].types[j] == 'locality') {
+                                        city = details[i].long_name;
+                                    } else if (details[i].types[j] == 'sublocality') {
+                                        city = details[i].long_name;
+                                    } else if (details[i].types[j] == 'neighborhood') {
+                                        city = details[i].long_name;
+                                    } else if (details[i].types[j] == 'postal_town') {
+                                        city = details[i].long_name;
+                                        console.log("postal_town=" + city);
+                                    } else if (details[i].types[j] == 'administrative_area_level_2') {
+                                        city = details[i].long_name;
+                                        console.log("admin_area_2=" + city);
+                                    }
+                                    // from "google maps API geocoding get address components"
+                                    // https://stackoverflow.com/questions/50225907/google-maps-api-geocoding-get-address-components
+                                    if (details[i].types[j] == "country") {
+                                        country = details[i].long_name;
+                                        short_name = details[i].short_name
+                                    }
+                                }
+                            }
+                            console.log("city=" + city);
+                            var marker = new google.maps.Marker({
+                                position: LatLng,
+                                map: map,
+                                title: '<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+city + (short_name)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ p.coords.latitude +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  p.coords.longitude+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+location_population+'</a> </div><div class="widget-posts-descr-link"><a href="">Humidity : 67.4%</a> </div><div class="widget-posts-descr-link"><a href=""> Temperature :40c</a> </div></div></div></div></div>'
+                            });
+                            
+                            for (var i =0; i < getCities(country).length; i++) {
 
-        polygon.setMap(map)
+                                addMyMarker({lat:getCities(country)[i].lat,lng:getCities(country)[i].lng},'<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+getCities(country)[i].city + (getCities(country)[i].iso2)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ getCities(country)[i].lat +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  getCities(country)[i].lat+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+getCities(country)[i].population+'</a> </div><div class="widget-posts-descr-link"><a href=""></a> </div><div class="widget-posts-descr-link"><a href=""></a> </div></div></div></div></div>',map) 
+                            }
+
+                        
+                            google.maps.event.addListener(marker, "click", function (e) {
+                                var infoWindow = new google.maps.InfoWindow();
+                                infoWindow.setContent(marker.title);
+                                infoWindow.open(map, marker);
+                            });
+                            google.maps.event.trigger(marker, 'click');
+                        } else {
+                            window.alert('No results found');
+                        }
+                    } else {
+                        window.alert('Geocoder failed due to: ' + status);
+                    }
+                });
+            });
+        } else {
+            alert('Geo Location feature is not supported in this browser.');
+        }
+
+
+        // var polygon = new google.maps.Polygon({
+        //   paths:delimiters,
+        //   strokeColor: '#FF000',
+        //   strokeOpity:0.8,
+        //   strokeWeight:3,
+        //   fillColor:'#ff0000',
+        //   fillOpacity:0.35
+        // });
+
+        // polygon.setMap(map)
 
         var boxText = document.createElement("div");
         boxText.className = 'map-box'
@@ -80,64 +151,6 @@
                 width: 50
             }
         ];
-
-        var ib = new InfoBox();
-        google.maps.event.addListener(ib, "domready", function () {
-            cardRaining();
-
-        });
-        var markerImg;
-        var markerCount;
-        for (i = 0; i < locations.length; i++) {
-            var labels = '123456789';
-            markerImg = locations[i][4];
-            markerCount = locations[i][3] + 1;
-            var overlaypositions = new google.maps.LatLng(locations[i][1], locations[i][2]),
-
-                overlay = new CustomMarker(
-                    overlaypositions, map, { marker_id: i }, markerImg, markerCount
-                );
-
-            allMarkers.push(overlay);
-
-            google.maps.event.addDomListener(overlay, 'click', (function (overlay, i) {
-
-                return function () {
-                    ib.setOptions(boxOptions);
-                    boxText.innerHTML = locations[i][0];
-                    ib.close();
-                    ib.open(map, overlay);
-                    currentInfobox = locations[i][3];
-
-                    var latLng = new google.maps.LatLng(locations[i][1], locations[i][2]);
-                    map.panTo(latLng);
-                    map.panBy(0, -110);
-
-                    google.maps.event.addListener(ib, 'domready', function () {
-                        $('.infoBox-close').click(function (e) {
-                            e.preventDefault();
-                            ib.close();
-                            $('.map-marker-container').removeClass('clicked infoBox-opened');
-                        });
-
-                    });
-
-                }
-            })(overlay, i));
-
-        }
-        var options2 = {
-            imagePath: '',
-            styles: clusterStyles,
-            minClusterSize: 2
-        };
-        markerCluster = new MarkerClusterer(map, allMarkers, options2);
-        google.maps.event.addDomListener(window, "resize", function () {
-            var center = map.getCenter();
-            google.maps.event.trigger(map, "resize");
-            map.setCenter(center);
-        });
-
 
         //map navigation functions to move around the map
         $('.map-item').on("click", function (e) {
@@ -220,6 +233,7 @@
             geolocate();
         });
 
+
         //function to find the current location
         function geolocate() {
             if (navigator.geolocation) {
@@ -249,82 +263,24 @@
         }
     }
 
+    // function to add marker
+    function addMyMarker(coords, content,map ){
+        var marker = new google.maps.Marker({
+          position:coords,
+          map:map,
+          //icon:props.iconImage
+        });
 
+          var infoWindow = new google.maps.InfoWindow({
+            content:content
+          });
 
-
-
-
-
-
-
-    // Custom Map Marker
-    // ----------------------------------------------- //
-
-    function CustomMarker(latlng, map, args, markerImg, markerCount) {
-        this.latlng = latlng;
-        this.args = args;
-
-        this.markerImg = markerImg;
-        this.markerCount = markerCount;
-        this.setMap(map);
-    }
-
-    CustomMarker.prototype = new google.maps.OverlayView();
-
-    CustomMarker.prototype.draw = function () {
-
-        var self = this;
-
-        var div = this.div;
-
-        if (!div) {
-
-            //creating custome marker 
-            div = this.div = document.createElement('div');
-            div.className = 'map-marker-container';
-
-            div.innerHTML = '<div class="marker-container">' +
-                '<span class="marker-count">' + self.markerCount + '</span>' +
-                '<div class="marker-card">' +
-                '<div class="marker-holder"><img src="' + self.markerImg + '" alt=""></div>' +
-                '</div>' +
-                '</div>'
-
-
-            // Clicked marker highlight
-            google.maps.event.addDomListener(div, "click", function (event) {
-                $('.map-marker-container').removeClass('clicked infoBox-opened');
-                google.maps.event.trigger(self, "click");
-                $(this).addClass('clicked infoBox-opened');
-            });
-            if (typeof (self.args.marker_id) !== 'undefined') {
-                div.dataset.marker_id = self.args.marker_id;
-            }
-
-            var panes = this.getPanes();
-            panes.overlayImage.appendChild(div);
+          marker.addListener('click', function(){
+            infoWindow.open(map, marker);
+          });
         }
-
-        var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
-
-        if (point) {
-            div.style.left = (point.x) + 'px';
-            div.style.top = (point.y) + 'px';
-        }
-    };
-
-    //function to remove marker
-    CustomMarker.prototype.remove = function () {
-        if (this.div) {
-            this.div.parentNode.removeChild(this.div);
-            this.div = null; $(this).removeClass('clicked');
-        }
-    };
-
-    CustomMarker.prototype.getPosition = function () { return this.latlng; };
-
+    
     // -------------- Custom Map Marker / End -------------- //	
-
 
     var head = document.getElementsByTagName('head')[0];
 
@@ -345,8 +301,5 @@
     if (typeof (map) != 'undefined' && map != null) {
         google.maps.event.addDomListener(window, 'load', mainMap);
     }
-
-
-
 
 })(this.jQuery);
