@@ -1,5 +1,4 @@
 var countryDetails;
-
 function search(){
     
     console.log(document.getElementById('query_text').value)
@@ -33,9 +32,9 @@ function getData(country_code){
         }else{
             response.json().then( function( data ){
                 this.response = data;
-                console.log(data)
                 return data   
             }.bind(this));
         }
     }.bind(this))
  }
+

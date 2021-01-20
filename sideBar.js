@@ -1,6 +1,3 @@
-
-  
-
   //creating the vue app instance
   window.onload = function () {
      new Vue({
@@ -50,8 +47,7 @@
         },
         
         getCountryCode(countryName){
-            
-            
+          
             var countries_results = countries.filter(function(country) {
               return country.name.includes(countryName);
             });

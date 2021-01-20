@@ -3,7 +3,10 @@ var location_population = "";
 (function ($) {
     "use strict";
     
+    //function for initial map
     function mainMap() {
+
+        //initial map settings
         var map = new google.maps.Map(document.getElementById('map-main'), {
             zoom: 6,
             scrollwheel: false,
@@ -27,6 +30,7 @@ var location_population = "";
             }]
         });
 
+        //getting geo data for the current location using geo coding api 
         var geocoder = new google.maps.Geocoder();
         var infowindow = new google.maps.InfoWindow();
         if (navigator.geolocation) {
@@ -52,7 +56,10 @@ var location_population = "";
                             var city;
                             var country;
                             var short_name;
+                            var city_short;
                             console.log(JSON.stringify(details));
+                            //looping though data from geocoding api 
+
                             for (var i = details.length - 1; i >= 0; i--) {
                                 for (var j = 0; j < details[i].types.length; j++) {
                                     if (details[i].types[j] == 'locality') {
@@ -66,6 +73,7 @@ var location_population = "";
                                         console.log("postal_town=" + city);
                                     } else if (details[i].types[j] == 'administrative_area_level_2') {
                                         city = details[i].long_name;
+                                        city_short = details[i].short_name
                                         console.log("admin_area_2=" + city);
                                     }
                                     // from "google maps API geocoding get address components"
@@ -76,25 +84,39 @@ var location_population = "";
                                     }
                                 }
                             }
-                            console.log("city=" + city);
-                            var marker = new google.maps.Marker({
-                                position: LatLng,
-                                map: map,
-                                title: '<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+city + (short_name)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ p.coords.latitude +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  p.coords.longitude+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+location_population+'</a> </div><div class="widget-posts-descr-link"><a href="">Humidity : 67.4%</a> </div><div class="widget-posts-descr-link"><a href=""> Temperature :40c</a> </div></div></div></div></div>'
-                            });
-                            
-                            for (var i =0; i < getCities(country).length; i++) {
+                            //defination of async function to fetch data from open weather to get weather data
+                            !async function(){
+                                let data = await fetch('http://api.openweathermap.org/data/2.5/weather?q='+city_short.toLowerCase()+'&appid=eea4f5577890e213e7cd6c3b6ae6b488')
+                                    .then((response) => response.json())
+                                    .then(data => {
+                                        return data;
+                                    })
+                                    .catch(error => {
+                                        console.error(error);
+                                    });
 
-                                addMyMarker({lat:getCities(country)[i].lat,lng:getCities(country)[i].lng},'<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+getCities(country)[i].city + (getCities(country)[i].iso2)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ getCities(country)[i].lat +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  getCities(country)[i].lat+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+getCities(country)[i].population+'</a> </div><div class="widget-posts-descr-link"><a href=""></a> </div><div class="widget-posts-descr-link"><a href=""></a> </div></div></div></div></div>',map) 
-                            }
+                                    //setting default maker for current location 
+                                    var marker = new google.maps.Marker({
+                                        position: LatLng,
+                                        map: map,
+                                        title: '<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+city + (short_name)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ p.coords.latitude +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  p.coords.longitude+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+location_population+'</a> </div><div class="widget-posts-descr-link"><a href="">Humidity :'+data.main.humidity+'%</a> </div><div class="widget-posts-descr-link"><a href=""> Temperature :'+data.main.temp+' K</a> </div></div></div></div></div>'
+                                    });
+                                    //setting event listiner for the marker click
+                                    google.maps.event.addListener(marker, "click", function (e) {
+                                        var infoWindow = new google.maps.InfoWindow();
+                                        infoWindow.setContent(marker.title);
+                                        infoWindow.open(map, marker);
+                                    });
+                                    google.maps.event.trigger(marker, 'click');
 
-                        
-                            google.maps.event.addListener(marker, "click", function (e) {
-                                var infoWindow = new google.maps.InfoWindow();
-                                infoWindow.setContent(marker.title);
-                                infoWindow.open(map, marker);
-                            });
-                            google.maps.event.trigger(marker, 'click');
+                                    //looping through all cities in a country adding marker
+                                    for (var i =0; i < getCities(country).length; i++) {
+
+                                        addMyMarker({lat:getCities(country)[i].lat,lng:getCities(country)[i].lng},'<div class="map-popup-wrap"><div class=""><div class="features-box"> <div class="widget-posts-descr">  <div class="geodir-category-location fl-wrap"><a href="#"><i class="fas fa-map-marker-alt"></i>'+getCities(country)[i].city + (getCities(country)[i].iso2)+'</a></div> <div class="widget-posts-descr-link"><a href="">Lat :'+ getCities(country)[i].lat +'</a> </div> <div class="widget-posts-descr-link"><a href="">Long :'+  getCities(country)[i].lat+'</a> </div> <div class="widget-posts-descr-link"><a href="" id="marker-population">Population : '+getCities(country)[i].population+'</a> </div><div class="widget-posts-descr-link"><a href="">Humidity :'+data.main.humidity+'%</a> </div><div class="widget-posts-descr-link"><a href=""></a> </div></div></div></div></div>',map) 
+                                    }     
+                                    console.log(data);
+                                }();
+
                         } else {
                             window.alert('No results found');
                         }
@@ -301,5 +323,4 @@ var location_population = "";
     if (typeof (map) != 'undefined' && map != null) {
         google.maps.event.addDomListener(window, 'load', mainMap);
     }
-
 })(this.jQuery);
